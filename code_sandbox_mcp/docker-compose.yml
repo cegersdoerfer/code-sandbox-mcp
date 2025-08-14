@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  code-execution-service:
+    build:
+      context: ./container_service
+      dockerfile: Dockerfile
+      args:
+        CONTAINER_SERVICE_PORT: ${CONTAINER_SERVICE_PORT:-8060}
+    ports:
+      - "${CONTAINER_SERVICE_PORT:-8060}:${CONTAINER_SERVICE_PORT:-8060}"
+    volumes:
+      - "${CODE_SANDBOX_PATH:-./code_sandbox_dir}:/workspace"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CONTAINER_SERVICE_PORT=${CONTAINER_SERVICE_PORT:-8060}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${CONTAINER_SERVICE_PORT:-8060}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3 
