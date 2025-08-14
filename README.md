@@ -13,7 +13,7 @@ A FastMCP-based code sandbox server with containerized code execution capabiliti
 ### Installation
 
 ```bash
-git clone github.com/cegersdoerfer/code-sandbox-mcp
+git clone https://github.com/cegersdoerfer/code-sandbox-mcp
 cd code_sandbox_mcp
 pip install -e .
 
